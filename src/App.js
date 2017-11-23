@@ -5,7 +5,7 @@ class App extends React.Component{
       
   render() {
 
-    return <Title/>
+    return <Title text="acbdef"/>
   }
 }
 
@@ -14,11 +14,16 @@ const Title = (props) => {
 }
 
 Title.propTypes = {
-  text: PropTypes.string.isRequired
+  text(props, propName, componentName) {
+    if(!(propName in props)) {
+      return new Error(`missing ${propName}`)
+    }
+
+    if(props[propName].length < 6 ) {
+      return new Error (`${propName} was too short`)
+    }
+  }
 }
 
-// Title.defaultProps = {
-//   text: "abc"
-// }
 
 export default App;
